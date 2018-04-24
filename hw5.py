@@ -1,11 +1,10 @@
 
 # coding: utf-8
 
-# In[1]:
+# In[2]:
 
 
 # -*- coding: utf-8 -*-
-import sys
 import csv
 import json
 import pickle
@@ -39,45 +38,30 @@ def main(filename):
 
     # compute word count from all_words
     counter = Counter(all_words)
-    # print(counter)
+
     # dump to a csv file named "wordcount.csv":
     # word,count
     # a,12345
     # I,23456
-    # ...
-
-    csv_filename = "wordcount.csv"
-    print(csv_filename)
-    with open(csv_filename, "w") as csv_file:
+    
+    with open("wordcount.csv", "w",newline='') as csv_file:
         # create a csv writer from a file object (or descriptor)
         writer = csv.writer(csv_file)
-                # write table head
+        # write table head
         writer.writerow(['word', 'count'])
         # write all (word, count) pair into the csv writer
-        
-        # writer.writerows(counter)
-        for key, value in counter.items():
-            writer.writerow([key, value])
+        writer.writerows(counter.most_common())
 
-
-    
-    # # dump to a json file named "wordcount.json"
-    # ...
-    json_filename = "wordcount.json"
-    with open(json_filename, "w") as json_file:
-        json.dump(counter,json_file)
+    # dump to a json file named "wordcount.json"
+    with open("wordcount.json", "w") as json_file:
+        writer = json.dump(counter.most_common(), json_file)
 
     # BONUS: dump to a pickle file named "wordcount.pkl"
+    with open("wordcount.pkl", "wb") as pkl_file:
+        writer = pickle.dump(counter.most_common(), pkl_file)    
     # hint: dump the Counter object directly
-    pickle_filename = "wordcount.pkl"
-    with open(pickle_filename, "wb") as pkl_file:
-        pickle.dump(counter,pkl_file)
 
-    # test to load pickle
-    # with open(pickle_filename, "rb") as pkl_file:
-    #     content = pickle.load(pkl_file)
-    #     print(content)
+
 if __name__ == '__main__':
-#     main("i_have_a_dream.txt")
-    main(sys.argv[1])
+    main("i_have_a_dream.txt")
 
