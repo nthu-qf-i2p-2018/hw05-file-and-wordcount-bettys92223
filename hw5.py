@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[2]:
+# In[6]:
 
 
 # -*- coding: utf-8 -*-
@@ -14,7 +14,7 @@ from collections import Counter
 
 def main(filename):
     # read file into lines
-    lines = open("i_have_a_dream.txt").readlines()
+    lines = open(filename).readlines()
 
     # declare a word list
     all_words = []
@@ -29,13 +29,14 @@ def main(filename):
         for word in words:
             # then, remove (strip) unwanted punctuations from every word
             # "dream." => "dream"
-            for p in string.punctuation:
-                word = word.replace(p, "")
+            word = word.strip(string.punctuation)
+            
             # check if word is not empty
             if word:
                 # append the word to "all_words" list
-                all_words.append(word)
-
+                all_words.append(word)            
+          
+                
     # compute word count from all_words
     counter = Counter(all_words)
 
